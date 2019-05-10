@@ -13,44 +13,17 @@ import java.io.IOException;
 import java.util.Properties;
 
 @Configuration
-@ComponentScan(basePackages = {"com.mainul35.service"})
+@ComponentScan(basePackages = {"com.mainul35.impl"})
 public class RootConfig {
-
-    Properties jdbcProperties() {
-        Properties prop = new Properties();
-        try {
-            prop.load(RootConfig.class.getClassLoader().getResourceAsStream("db_config.properties"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return prop;
-    }
-
-    @Bean(name = "dataSource")
-    public DriverManagerDataSource dataSource() {
-        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName(jdbcProperties().getProperty("springframework.jdbc.driverClassName"));
-        dataSource.setUrl(jdbcProperties().getProperty("springframework.jdbc.url"));
-        dataSource.setUsername(jdbcProperties().getProperty("springframework.jdbc.username"));
-        dataSource.setPassword(jdbcProperties().getProperty("springframework.jdbc.password"));
-        return dataSource;
-    }
-
-
-
-    @Bean(name = "hibernateProperties")
-    Properties hibernateProperties() {
-        Properties prop = new Properties();
-        try {
-            prop.load(RootConfig.class.getClassLoader().getResourceAsStream("hibernate.properties"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return prop;
-    }
-
     @Bean
-    MySqlConfig mySqlConfig(){
-        return new MySqlConfig();
+    @Qualifier("applicationProperties")
+    Properties applicationProperties() {
+        Properties prop = new Properties();
+        try {
+            prop.load(RootConfig.class.getClassLoader().getResourceAsStream("application.properties"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return prop;
     }
 }
