@@ -1,13 +1,15 @@
 package com.mainul35.dao;
 
 import com.mainul35.entity.User;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
-public interface UserDao {
+public interface UserDao extends UserDetailsService{
     public List<User> list();
 
-    User addUser(String name);
+    User addUser(Map<String, String[]> params);
 }
