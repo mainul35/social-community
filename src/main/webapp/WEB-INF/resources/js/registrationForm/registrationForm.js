@@ -15,14 +15,14 @@ $(function () {
     $('.panel-google-plus-comment > .panel-google-plus-textarea > textarea').on('keyup', function(event) {
         var $comment = $(this).closest('.panel-google-plus-comment');
 
-        $comment.find('button[type="submit"]').addClass('disabled');
+        $comment.find('button[type="submit"]').addClass('disabled')
         if ($(this).val().length >= 1) {
             $comment.find('button[type="submit"]').removeClass('disabled');
         }
     });
 });
 
-LoginForm = (function () {
+RegistrationForm = (function () {
 
     return {
         initialize: function (form) {
@@ -40,4 +40,4 @@ LoginForm = (function () {
             }
         }
     }
-}().initialize(document.querySelector("form.loginForm")));
+}().initialize(document.querySelector("form.registrationForm")));

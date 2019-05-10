@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title><fmt:bundle basename="login"/></title>
+    <title><fmt:message key="register"/></title>
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/resources/css/loginForm/loginForm.css">
 </head>
@@ -16,9 +16,18 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header"><fmt:message key="login"/></div>
+                    <div class="card-header"><fmt:message key="register"/></div>
                     <div class="card-body">
-                        <form action="/login-processing" method="post" class="loginForm">
+                        <form action="/register" method="POST" class="registrationForm" onsubmit="false">
+                            <div class="form-group row">
+                                <label for="name" class="col-md-4 col-form-label text-md-right"><fmt:message key="name"/></label>
+                                <div class="col-md-6">
+                                    <input type="text" id="name" class="form-control required" length="2..70" name="name"
+                                           required autofocus>
+                                    <span class="name-invalid-message"></span>
+                                </div>
+                            </div>
+
                             <div class="form-group row">
                                 <label for="email_address" class="col-md-4 col-form-label text-md-right"><fmt:message key="email.address"/></label>
                                 <div class="col-md-6">
@@ -38,11 +47,8 @@
 
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    <fmt:message key="login"/>
+                                    <fmt:message key="register"/>
                                 </button>
-                                <a href="#" class="btn btn-link">
-                                    <fmt:message key="forgot.password"/>
-                                </a>
                             </div>
                         </form>
                     </div>
