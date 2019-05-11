@@ -36,13 +36,10 @@ public class UserDaoImpl implements UserDao {
         return listUser;
     }
 
-    public User addUser(Map<String, String[]> params){
+    public User addUser(User user){
         Session session = sessionFactory.getCurrentSession();
-        User user = new User();
-        user.setName(params.get("name")[0]);
-        user.setEmail(params.get("email")[0]);
-        user.setUsername(params.get("email")[0].split("@")[0]);
-        user.setPassword(passwordEncoder.encode(params.get("password")[0]));
+        user.setUsername(user.getEmail().split("@")[0]);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setCreatedOn(new Date());
         user.setUpdatedOn(new Date());
 

@@ -1,9 +1,12 @@
 package com.mainul35.entity;
 
+import org.hibernate.validator.constraints.Email;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -13,14 +16,22 @@ import java.util.List;
 @Table(name = "tbl_user")
 public class User implements UserDetails {
     @Id
+    @NotNull(message = "ID must not be null")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @Column
     private String username;
+    @NotNull(message = "Password is required")
+    @Size(min=6, max=70, message = "Password must be between 6-70 characters")
     @Column
     private String password;
+    @NotNull(message = "Name is required")
+    @Size(min=2, max=70, message = "Name must be between 2-70 characters")
     @Column
     private String name;
+    @NotNull(message = "Email must not be empty")
+    @Size(min=5, max=60, message = "Email must be between 5-60 characters")
+    @Email(message = "Invalid email! Please enter valid email")
     @Column
     private String email;
     @Column
@@ -32,6 +43,8 @@ public class User implements UserDetails {
     @OneToMany(orphanRemoval=true, fetch=FetchType.EAGER)
     @JoinTable(name = "user_roles")
     List<Role> roles = new ArrayList<Role>();
+    @OneToOne
+    private Location myLocation;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;

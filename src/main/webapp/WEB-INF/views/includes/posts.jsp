@@ -4,78 +4,28 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="stylesheet" type="text/css"
+          href="${pageContext.request.contextPath}/resources/css/template-styles/post.css">
 </head>
 <body>
-<div class="container">
-    <div class="well">
-        <div class="media">
-            <a class="pull-left" href="#">
-                <img class="media-object" src="http://placekitten.com/150/150">
-            </a>
-            <div class="media-body">
-                <h4 class="media-heading">Receta 1</h4>
-                <p class="text-right">By Francisco</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate.
-                    Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis
-                    dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan.
-                    Aliquam in felis sit amet augue.</p>
-                <ul class="list-inline list-unstyled">
-                    <li><span><i class="glyphicon glyphicon-calendar"></i> 2 days, 8 hours </span></li>
-                    <li>|</li>
-                    <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span>
-                    <li>|</li>
-                    <li>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                    </li>
-                    <li>|</li>
-                    <li>
-                        <!-- Use Font Awesome http://fortawesome.github.io/Font-Awesome/ -->
-                        <span><i class="fa fa-facebook-square"></i></span>
-                        <span><i class="fa fa-twitter-square"></i></span>
-                        <span><i class="fa fa-google-plus-square"></i></span>
-                    </li>
-                </ul>
+<div class="content-wrapper">
+    <div class="container">
+        <div class="row mb-2">
+        <div class="col-md-12">
+            <div class="row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+                <div class="col p-4 d-flex flex-column position-static">
+                    <strong class="d-inline-block mb-2 text-primary">World</strong>
+                    <h3 class="mb-0">Featured post</h3>
+                    <div class="mb-1 text-muted">Nov 12</div>
+                    <p class="card-text mb-auto">This is a wider card with supporting text below as a natural lead-in to additional content.</p>
+                    <a href="#" class="stretched-link">Continue reading</a>
+                </div>
+                <div class="col-auto d-none d-lg-block">
+                    <svg class="bd-placeholder-img" width="200" height="250" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
+                </div>
             </div>
         </div>
     </div>
-    <div class="well">
-        <div class="media">
-            <a class="pull-left" href="#">
-                <img class="media-object" src="http://placekitten.com/150/150">
-            </a>
-            <div class="media-body">
-                <h4 class="media-heading">Receta 2</h4>
-                <p class="text-right">By Anailuj</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis pharetra varius quam sit amet vulputate.
-                    Quisque mauris augue, molestie tincidunt condimentum vitae, gravida a libero. Aenean sit amet felis
-                    dolor, in sagittis nisi. Sed ac orci quis tortor imperdiet venenatis. Duis elementum auctor accumsan.
-                    Aliquam in felis sit amet augue.</p>
-                <ul class="list-inline list-unstyled">
-                    <li><span><i class="glyphicon glyphicon-calendar"></i> 2 days, 8 hours </span></li>
-                    <li>|</li>
-                    <span><i class="glyphicon glyphicon-comment"></i> 2 comments</span>
-                    <li>|</li>
-                    <li>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star"></span>
-                        <span class="glyphicon glyphicon-star-empty"></span>
-                    </li>
-                    <li>|</li>
-                    <li>
-                        <!-- Use Font Awesome http://fortawesome.github.io/Font-Awesome/ -->
-                        <span><i class="fa fa-facebook-square"></i></span>
-                        <span><i class="fa fa-twitter-square"></i></span>
-                        <span><i class="fa fa-google-plus-square"></i></span>
-                    </li>
-                </ul>
-            </div>
-        </div>
     </div>
 </div>
 </body>
