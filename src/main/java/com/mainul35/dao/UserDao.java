@@ -11,5 +11,5 @@ import java.util.Map;
 public interface UserDao extends UserDetailsService{
     public List<User> list();
 
-    User addUser(Map<String, String[]> params);
+    User addUser(User user);
 }

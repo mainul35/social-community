@@ -7,6 +7,4 @@
 <script type="text/javascript"
         src="${pageContext.request.contextPath}/resources/js/popper.min.js"></script>
 <script type="text/javascript"
-		src="${pageContext.request.contextPath}/resources/js/loginForm/loginForm.js"></script>
-<script type="text/javascript"
-        src="${pageContext.request.contextPath}/resources/js/registrationForm/registrationForm.js"></script>
+        src="${pageContext.request.contextPath}/resources/js/ckeditor.js"></script>
