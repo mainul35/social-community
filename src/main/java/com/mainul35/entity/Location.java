@@ -2,13 +2,13 @@ package com.mainul35.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Objects;
 
 @Entity
 @Table(name = "location")
 public class Location {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull(message = "Location id must not be null")
     private Long id;
     @Column
@@ -37,5 +37,19 @@ public class Location {
                 "id=" + id +
                 ", locationName='" + locationName + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Location)) return false;
+        Location location = (Location) o;
+        return Objects.equals(id, location.id) &&
+                Objects.equals(locationName, location.locationName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, locationName);
     }
 }

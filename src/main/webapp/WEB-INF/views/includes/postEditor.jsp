@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-    <title><fmt:bundle basename="login"/></title>
+    <title><fmt:message key="login"/></title>
     <link rel="stylesheet" type="text/css"
           href="${pageContext.request.contextPath}/resources/css/template-styles/postEditor.css">
     <link rel="stylesheet" type="text/css"

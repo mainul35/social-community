@@ -25,11 +25,36 @@ public class LocationDaoImpl implements LocationDao {
     }
 
     @Override
+    public Location updateLocation(Location location) {
+        String hql = "UPDATE Location l set l.locationName = :locationName "  +
+        "WHERE l.id = :locationId";
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery(hql);
+        query.setParameter("locationName", location.getLocationName());
+        query.setParameter("locationId", location.getId());
+        query.executeUpdate();
+        return location;
+    }
+
+    @Override
     public Location getLocationByName(String locationName) {
         String hql = "FROM Location l WHERE l.locationName = :locationName";
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery(hql);
         query.setParameter("locationName", locationName);
+        Location location = null;
+        if (query.list().size() > 0) {
+            location = (Location) query.list().get(0);
+        }
+        return location;
+    }
+
+    @Override
+    public Location getLocationById(Long id) {
+        String hql = "FROM Location l WHERE l.id = :id";
+        Session session = sessionFactory.getCurrentSession();
+        Query query = session.createQuery(hql);
+        query.setParameter("id", id);
         Location location = null;
         if (query.list().size() > 0) {
             location = (Location) query.list().get(0);
