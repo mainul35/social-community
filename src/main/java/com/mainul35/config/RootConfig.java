@@ -2,6 +2,7 @@ package com.mainul35.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -17,9 +18,11 @@ import java.util.Properties;
 @ComponentScan(basePackages = {"com.mainul35.impl"})
 public class RootConfig {
     @Bean(name = "messageSource")
-    ResourceBundleMessageSource applicationProperties() {
+    @Qualifier("messageSource")
+    public ResourceBundleMessageSource messageSource() {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setBasename("resourceBundles/messages");
+        messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
     }
 }

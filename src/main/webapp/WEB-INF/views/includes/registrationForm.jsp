@@ -9,7 +9,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
     <title><fmt:message key="register"/></title>
     <link rel="stylesheet" type="text/css"
-          href="${pageContext.request.contextPath}/resources/css/template-styles/loginForm.css">
+          href="${pageContext.request.contextPath}/resources/css/template-styles/registrationForm.css">
 </head>
 <body>
 <main class="login-form">
@@ -24,7 +24,7 @@
                         </div>
                     </c:if>
                     <div class="card-body">
-                        <form:form action="/register" method="POST" class="registrationForm" onsubmit="false" modelAttribute="user">
+                        <form:form action="${pageContext.request.contextPath}/register" method="POST" class="registrationForm" onsubmit="false" modelAttribute="user">
                             <form:input path="id" type="hidden" value="${user.id}"></form:input>
                             <div class="form-group row">
                                 <label for="name" class="col-md-4 col-form-label text-md-right"><fmt:message key="name"/></label>

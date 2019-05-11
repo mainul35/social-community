@@ -1,6 +1,7 @@
 package com.mainul35.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "location")
@@ -8,8 +9,10 @@ public class Location {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @NotNull(message = "Location id must not be null")
     private Long id;
     @Column
+    @NotNull(message = "Location name must not be empty")
     private String locationName;
 
     public Long getId() {

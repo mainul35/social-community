@@ -43,6 +43,8 @@ public class User implements UserDetails {
     @OneToMany(orphanRemoval=true, fetch=FetchType.EAGER)
     @JoinTable(name = "user_roles")
     List<Role> roles = new ArrayList<Role>();
+    @OneToOne
+    private Location myLocation;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;

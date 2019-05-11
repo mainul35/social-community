@@ -5,6 +5,7 @@ import com.mainul35.dao.UserDao;
 import com.mainul35.entity.Status;
 import com.mainul35.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,9 +19,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-
 @Controller
 public class HomeController {
+    @Autowired
+    private MessageSource messageSource;
     @Autowired
     private UserDao userDaoImpl;
     @Autowired
@@ -91,7 +93,7 @@ public class HomeController {
                 return "index";
             } else {
                 if (userDaoImpl.loadUserByUsername(user.getEmail()) instanceof User) {
-                    errorMessage += "<li><h6>" + "This email address is already registered in database. Please select another one." + "</h6></li></ul>";
+                    errorMessage += "<li><h6>" + messageSource.getMessage("this.x0.is.already.registered.in.database,please.select.another.one", new Object[]{"location"}, null) + "</h6></li></ul>";
                     model.addAttribute("errorMessage", errorMessage);
                 } else {
                     userDaoImpl.addUser(user);
