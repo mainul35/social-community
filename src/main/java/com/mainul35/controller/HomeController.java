@@ -48,11 +48,16 @@ public class HomeController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        User user = userDaoImpl.getUserByUsername((String) session.getAttribute("username"));
+        User user = null;
+        if (session.getAttribute("username") != null) {
+            if (!((String) session.getAttribute("username")).isEmpty()) {
+                user = userDaoImpl.getUserByUsername((String) session.getAttribute("username"));
+            }
+        }
         if (user != null) {
-            model.addAttribute("posts", statusDaoImpl.getByOwner(user));
+            model.addAttribute("posts", statusDaoImpl.getAllByVisibility(null, user));
         } else {
-            model.addAttribute("posts", statusDaoImpl.getAllPublic());
+            model.addAttribute("posts", statusDaoImpl.getAllByVisibility(Visibility.PUBLIC, null));
         }
         return "landing";
     }

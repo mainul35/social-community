@@ -14,10 +14,30 @@
 
 ## Completed checkpoints:
 1. Register and login
+![alt text](md-resources/registration.PNG "Registration Page")
+
+![alt text](md-resources/login.PNG "Login Page")
 2. Create, update location
+![alt text](md-resources/add-view-update-location.PNG "Add, View and update locations")
 3. Create, update, delete status
+![alt text](md-resources/profile.PNG "Create status page")
+
+![alt text](md-resources/profile-2.PNG "Created status list")
+
+![alt text](md-resources/profile-3-after-status-update.PNG "Status after update")
 4. Public status are visible to everyone, private are only visible to owner.
+
+Example:
+Public page:
+![alt text](md-resources/index-page.PNG "Only public status are shown")
+
+Same page accessed by logged in user:
+![alt text](md-resources/index-page-after-login.PNG "Both public and private are shown to logged in user.")
+
 5. Form fields are validated both in client and server side.
+Example:
+Registration page:
+![alt text](md-resources/registration.PNG "Validation in registration page")
 
 ## Could not perform:
 1. Updating oneToMany with HQL

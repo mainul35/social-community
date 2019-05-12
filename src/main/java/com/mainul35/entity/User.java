@@ -7,10 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "tbl_user")
@@ -151,5 +148,27 @@ public class User implements UserDetails {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return enabled == user.enabled &&
+                Objects.equals(id, user.id) &&
+                Objects.equals(username, user.username) &&
+                Objects.equals(password, user.password) &&
+                Objects.equals(name, user.name) &&
+                Objects.equals(email, user.email) &&
+                Objects.equals(createdOn, user.createdOn) &&
+                Objects.equals(updatedOn, user.updatedOn) &&
+                Objects.equals(role, user.role) &&
+                Objects.equals(myLocation, user.myLocation);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, password, name, email, createdOn, updatedOn, enabled, role, myLocation);
     }
 }
