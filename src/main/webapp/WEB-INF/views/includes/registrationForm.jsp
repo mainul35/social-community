@@ -20,7 +20,12 @@
                     <div class="card-header"><fmt:message key="register"/></div>
                     <c:if test="${errorMessage != null}">
                         <div class="alert alert-danger" role="alert">
-                            ${errorMessage}
+                                ${errorMessage}
+                        </div>
+                    </c:if>
+                    <c:if test="${successMessage != null}">
+                        <div class="alert alert-success" role="alert">
+                                ${successMessage}
                         </div>
                     </c:if>
                     <div class="card-body">
@@ -44,6 +49,25 @@
                                 </div>
                             </div>
 
+                            <div class="form-group row">
+                                <label for="username" class="col-md-4 col-form-label text-md-right"><fmt:message key="username"/></label>
+                                <div class="col-md-6">
+                                    <form:input type="text" id="username" class="form-control required" length="5..60" path="username"
+                                                required="true"></form:input>
+                                    <form:errors path="username" class="username-invalid-message"></form:errors>
+                                </div>
+                            </div>
+                            <div  class="form-group row">
+                                <label for="location" class="col-md-4 col-form-label text-md-right"><fmt:message key="location"/></label>
+                                <div class="col-md-6">
+                                    <form:select path="myLocation" id="location" cssStyle="width: 100%">
+                                        <form:option selected="true"
+                                                     value="${empty status.locations?'Please Select a Location':status.locations}"/>
+                                        <form:options items="${locationList}" />
+                                    </form:select>
+                                    <form:errors path="myLocation" class="myLocation-invalid-message"></form:errors>
+                                </div>
+                            </div>
                             <div class="form-group row">
                                 <label for="password" class="col-md-4 col-form-label text-md-right"><fmt:message key="password"/></label>
                                 <div class="col-md-6">

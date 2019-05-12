@@ -12,4 +12,10 @@ public interface UserDao extends UserDetailsService{
     public List<User> list();
 
     User addUser(User user);
+
+    User getUserByUsername(String username);
+
+    User getUserById(Long id);
+
+    User update(User user);
 }

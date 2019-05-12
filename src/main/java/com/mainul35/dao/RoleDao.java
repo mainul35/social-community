@@ -1,6 +1,7 @@
 package com.mainul35.dao;
 
 import com.mainul35.entity.Role;
+import com.mainul35.entity.User;
 
 import java.util.Map;
 

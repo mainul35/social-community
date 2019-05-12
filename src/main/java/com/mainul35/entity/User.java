@@ -19,6 +19,8 @@ public class User implements UserDetails {
     @NotNull(message = "ID must not be null")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotNull(message = "You must choose a username")
+    @Size(min=5, max=60, message = "Username must be between 5-60 characters")
     @Column
     private String username;
     @NotNull(message = "Password is required")
@@ -40,11 +42,12 @@ public class User implements UserDetails {
     private Date updatedOn;
     @Column
     private boolean enabled = true;
-    @OneToMany(orphanRemoval=true, fetch=FetchType.EAGER)
+    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinTable(name = "user_roles")
     List<Role> roles = new ArrayList<Role>();
-    @OneToOne
-    private Location myLocation;
+    @NotNull(message = "You must have to select a location")
+    @Column(name="location_name")
+    private String myLocation;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
@@ -140,19 +143,12 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                ", createdOn=" + createdOn +
-                ", updatedOn=" + updatedOn +
-                ", enabled=" + enabled +
-                ", roles=" + roles +
-                '}';
+    public String getMyLocation() {
+        return myLocation;
+    }
+
+    public void setMyLocation(String myLocation) {
+        this.myLocation = myLocation;
     }
 
     public void setEnabled(boolean enabled) {

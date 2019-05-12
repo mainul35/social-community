@@ -30,15 +30,7 @@ public class Location {
     public void setLocationName(String locationName) {
         this.locationName = locationName;
     }
-
-    @Override
-    public String toString() {
-        return "Location{" +
-                "id=" + id +
-                ", locationName='" + locationName + '\'' +
-                '}';
-    }
-
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -1,3 +1,10 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Syed Mainul Hasan
+  Date: 5/12/2019
+  Time: 1:53 AM
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
          pageEncoding="ISO-8859-1" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c" %>
@@ -11,15 +18,7 @@
 </head>
 <body>
 <jsp:include page="includes/navbar.jsp" />
-<c:choose>
-    <c:when test="${template == 'registrationForm'}">
-        <jsp:include page="includes/registrationForm.jsp" >
-            <jsp:param name="locationList" value="${locationList}"></jsp:param>
-        </jsp:include>
-    </c:when>
-    <c:otherwise>
-        <jsp:include page="includes/${template}.jsp" />
-    </c:otherwise>
-</c:choose>
-</body>
-</html>
+<jsp:include page="includes/posts.jsp">
+    <jsp:param name="posts" value="${posts}"></jsp:param>
+</jsp:include>
+
