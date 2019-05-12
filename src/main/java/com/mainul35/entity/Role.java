@@ -3,6 +3,7 @@ package com.mainul35.entity;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "tbl_role")
@@ -12,6 +13,8 @@ public class Role implements GrantedAuthority {
     Long id;
     @Column
     String role;
+    @ManyToOne(fetch = FetchType.EAGER)
+    User user;
     @Override
     public String getAuthority() {
         return this.role;
@@ -33,11 +36,11 @@ public class Role implements GrantedAuthority {
         this.role = role;
     }
 
-    @Override
-    public String toString() {
-        return "Role{" +
-                "id=" + id +
-                ", role='" + role + '\'' +
-                '}';
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

@@ -2,6 +2,7 @@ package com.mainul35.impl;
 
 import com.mainul35.dao.RoleDao;
 import com.mainul35.entity.Role;
+import com.mainul35.entity.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;

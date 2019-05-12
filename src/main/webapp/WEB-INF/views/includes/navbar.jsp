@@ -30,7 +30,7 @@
                 </sec:authorize>
                 <sec:authorize access="isAuthenticated()">
                     <li class="nav-item">
-                        <a class="nav-link" href="/add-location"><fmt:message key="add.locaiton"/></a>
+                        <a class="nav-link" href="/add-location"><fmt:message key="add.location"/></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/profile"><fmt:message key="profile"/></a>
