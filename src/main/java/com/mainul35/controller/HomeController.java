@@ -44,7 +44,7 @@ public class HomeController {
     @RequestMapping("/")
     public String index(Model model, HttpSession session){
         try {
-//            initializeDB();
+            initializeDB();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -160,10 +160,35 @@ public class HomeController {
     }
 
     public void initializeDB(){
-        createLocation("Dhaka");
-        createLocation("Khulna");
-        createLocation("Chattogram");
-        createLocation("Jessore");
+        if (locationDaoImpl.getAllLocations().size() < 1) {
+            createLocation("Dhaka");
+            createLocation("Khulna");
+            createLocation("Chattogram");
+            createLocation("Jessore");
+
+            User user = new User();
+            user.setEmail("mainuls18@gmail.com");
+            user.setUsername("mainul35");
+            user.setPassword(passwordEncoder.encode("secret"));
+            user.setName("Syed Mainul Hasan");
+            user.setCreatedOn(new Date());
+            user.setMyLocation("Dhaka");
+            user.setUpdatedOn(new Date());
+            user.setId(System.currentTimeMillis());
+            userDaoImpl.addUser(user);
+
+            Status status = new Status();
+            status.setOwner(user);
+            List<String> location = new ArrayList<>();
+            location.add("Dhaka");
+            status.setLocations(location);
+            status.setId(System.currentTimeMillis());
+            status.setVisibility(Visibility.valueOf(Visibility.PUBLIC));
+            status.setTitle("Seed data");
+            status.setStatus("Lorem Ipsum Dolor");
+            status.setCreatedOn(new Date());
+            statusDaoImpl.save(status);
+        }
     }
 
     private void createLocation(String name) {
