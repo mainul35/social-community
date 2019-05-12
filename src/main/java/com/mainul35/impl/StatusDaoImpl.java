@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 @Transactional
@@ -80,15 +81,27 @@ public class StatusDaoImpl implements StatusDao {
     }
 
     @Override
-    public List<Status> getAllPublic() {
+    public List<Status> getAllByVisibility(Visibility visibility, User owner) {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "FROM Status st where st.visibility = :visibility  order by st.updatedOn DESC ";
+        List<String> visibilityList = new ArrayList<>();
+        if (visibility != null) {
+            visibilityList.add(Visibility.valueOf(visibility));
+        } else {
+            Visibility.getVisibilityList().forEach(v->{
+                visibilityList.add(Visibility.valueOf(v));
+            });
+        }
+        String hql = "FROM Status st where st.visibility in (:visibility)  order by st.updatedOn DESC ";
         Query query = session.createQuery(hql);
-        query.setParameter("visibility", Visibility.valueOf(Visibility.PUBLIC));
+        query.setParameter("visibility", visibilityList);
         List<Status> statusList = null;
         if (query.list().size() > 0) {
             statusList = (List<Status>) query.list();
         }
+        statusList = statusList.stream().filter(status ->
+                ((status.getVisibility().equalsIgnoreCase(Visibility.valueOf(Visibility.PRIVATE)) && status.getOwner().getEmail().equals(owner.getEmail()))
+    || status.getVisibility().equalsIgnoreCase(Visibility.valueOf(Visibility.PUBLIC)))
+                ).collect(Collectors.toList());
         return statusList;
     }
 
