@@ -42,23 +42,21 @@ public class User implements UserDetails {
     private Date updatedOn;
     @Column
     private boolean enabled = true;
-    @OneToMany(fetch=FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name = "user_roles")
-    List<Role> roles = new ArrayList<Role>();
+    @OneToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name = "user_role")
+    Role role = new Role();
     @NotNull(message = "You must have to select a location")
     @Column(name="location_name")
     private String myLocation;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<Role> roles = new ArrayList<>();
+        roles.add(this.role);
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
-
-    public void addRole(Role role) {
-        this.roles.add(role);
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     @Override
@@ -131,8 +129,8 @@ public class User implements UserDetails {
         this.updatedOn = updatedOn;
     }
 
-    public List<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return this.role;
     }
 
     public String getEmail() {

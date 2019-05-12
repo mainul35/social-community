@@ -143,7 +143,7 @@ public class HomeController {
                         user1.setMyLocation(user.getMyLocation());
                         user1.setPassword(user.getPassword());
                         user1.setUsername(user.getUsername());
-                        user1.setRoles(user.getRoles());
+                        user1.setRole(user.getRole());
                         user1.setUpdatedOn(new Date());
                         userDaoImpl.update(user1);
                         model.addAttribute("successMessage", messageSource.getMessage("x0.has.been.x1.successfully", new Object[]{"user", "updated"}, null));

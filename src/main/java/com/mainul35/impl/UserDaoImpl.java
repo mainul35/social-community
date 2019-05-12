@@ -50,9 +50,7 @@ public class UserDaoImpl implements UserDao {
             role.setRole("ROLE_USER");
             session.save(role);
         }
-        List<Role> roles = new ArrayList<>();
-        roles.add(role);
-        user.setRoles(roles);
+        user.setRole(role);
         session.save(user);
         return user;
     }
@@ -92,7 +90,7 @@ public class UserDaoImpl implements UserDao {
                 "u.name = :name, " +
                 "u.updatedOn = :updatedOn," +
                 "u.myLocation = :location," +
-                "u.roles = :roles "  +
+                "u.role = :role "  +
                 "WHERE u.id = :id";
         Session session = sessionFactory.getCurrentSession();
         Query query = session.createQuery(hql);
@@ -102,7 +100,7 @@ public class UserDaoImpl implements UserDao {
         query.setParameter("password", user.getPassword());
         query.setParameter("updatedOn", user.getUpdatedOn());
         query.setParameter("location", user.getMyLocation());
-        query.setParameter("roles", user.getRoles());
+        query.setParameter("role", user.getRole());
         query.setParameter("id", user.getId());
         query.executeUpdate();
         return user;
@@ -119,10 +117,6 @@ public class UserDaoImpl implements UserDao {
         if (query.list().size() > 0) {
             user = (User) query.list().get(0);
         }
-        Role role = roleDao.getRoleByRoleName("ROLE_USER");
-        List<Role> roles = new ArrayList<>();
-        roles.add(role);
-        user.setRoles(roles);
         return user;
     }
 }
