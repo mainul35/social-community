@@ -49,11 +49,7 @@ public class HomeController {
             e.printStackTrace();
         }
         User user = userDaoImpl.getUserByUsername((String) session.getAttribute("username"));
-        if (user != null) {
-            model.addAttribute("posts", statusDaoImpl.getByOwner(user));
-        } else {
-            model.addAttribute("posts", statusDaoImpl.getAllPublic());
-        }
+        model.addAttribute("posts", statusDaoImpl.getAllPublic());
         return "landing";
     }
 

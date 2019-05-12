@@ -48,7 +48,7 @@ public class StatusDaoImpl implements StatusDao {
     @Override
     public List<Status> getByOwner(User user) {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "FROM Status st where st.owner = :user";
+        String hql = "FROM Status st where st.owner = :user order by st.updatedOn DESC";
         Query query = session.createQuery(hql);
         query.setParameter("user", user);
         List<Status> statusList = null;
@@ -82,7 +82,7 @@ public class StatusDaoImpl implements StatusDao {
     @Override
     public List<Status> getAllPublic() {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "FROM Status st where st.visibility = :visibility";
+        String hql = "FROM Status st where st.visibility = :visibility  order by st.updatedOn DESC ";
         Query query = session.createQuery(hql);
         query.setParameter("visibility", Visibility.valueOf(Visibility.PUBLIC));
         List<Status> statusList = null;
