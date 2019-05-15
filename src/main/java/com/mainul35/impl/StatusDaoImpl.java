@@ -2,7 +2,6 @@ package com.mainul35.impl;
 
 import com.mainul35.dao.LocationDao;
 import com.mainul35.dao.StatusDao;
-import com.mainul35.entity.Location;
 import com.mainul35.entity.Status;
 import com.mainul35.entity.User;
 import com.mainul35.enums.Visibility;
@@ -108,21 +107,7 @@ public class StatusDaoImpl implements StatusDao {
     @Override
     public Status update(Status status) {
         Session session = sessionFactory.getCurrentSession();
-        String hql = "UPDATE Status st " +
-                "set st.status = :status, " +
-                "st.title = :title, " +
-//                "st.locations (:locations), " +
-                "st.visibility = :visibility, " +
-                "st.updatedOn = :updatedOn " +
-                "WHERE st.id = :statusId";
-        Query query = session.createQuery(hql);
-        query.setParameter("status", status.getStatus());
-        query.setParameter("title", status.getTitle());
-//        query.setParameterList("locations", status.getLocations());
-        query.setParameter("visibility", status.getVisibility());
-        query.setParameter("updatedOn", status.getUpdatedOn());
-        query.setParameter("statusId", status.getId().longValue());
-        Integer updated = query.executeUpdate();
+        session.update(status);
         return status;
     }
 
