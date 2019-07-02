@@ -7,5 +7,8 @@ import java.util.Map;
 
 public interface RoleDao {
     Role save(Map<String, String[]> params);
+    Role save(Role role);
     Role getRoleByRoleName(String roleName);
+
+    void updateRole(Role role);
 }

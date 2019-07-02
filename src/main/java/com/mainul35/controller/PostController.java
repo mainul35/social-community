@@ -64,7 +64,7 @@ public class PostController {
                     status1.setStatus(status1.getStatus());
                     status1.setUpdatedOn(new Date());
                     status1.setVisibility(status.getVisibility());
-                    status1.setLocations(status.getLocations());
+                    status1.setVisibilityLocations(status.getVisibilityLocations());
                     statusDaoImpl.update(status1);
                     model.addAttribute("successMessage", messageSource.getMessage("x0.has.been.x1.successfully", new Object[]{"status", "updated"}, null));
                 } else {

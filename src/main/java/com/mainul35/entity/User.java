@@ -1,11 +1,13 @@
 package com.mainul35.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.validator.constraints.Email;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
 import java.util.*;
 
@@ -31,7 +33,7 @@ public class User implements UserDetails {
     @NotNull(message = "Email must not be empty")
     @Size(min=5, max=60, message = "Email must be between 5-60 characters")
     @Email(message = "Invalid email! Please enter valid email")
-    @Column
+    @Column(unique = true)
     private String email;
     @Column
     private Date createdOn;
@@ -39,21 +41,24 @@ public class User implements UserDetails {
     private Date updatedOn;
     @Column
     private boolean enabled = true;
-    @OneToOne(fetch=FetchType.EAGER)
-    @JoinColumn(name = "user_role")
-    Role role = new Role();
+    @JsonIgnore
+    @OneToMany(mappedBy = "tbl_user", fetch = FetchType.LAZY)
+    private List<Role> roles;
     @NotNull(message = "You must have to select a location")
-    @Column(name="location_name")
-    private String myLocation;
+    @ManyToOne
+    @JoinColumn(name = "location_id", nullable = true)
+    private Location location;
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<Role> roles = new ArrayList<>();
-        roles.add(this.role);
         return roles;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 
     @Override
@@ -126,10 +131,6 @@ public class User implements UserDetails {
         this.updatedOn = updatedOn;
     }
 
-    public Role getRole() {
-        return this.role;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -138,37 +139,15 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    public String getMyLocation() {
-        return myLocation;
+    public Location getMyLocation() {
+        return location;
     }
 
-    public void setMyLocation(String myLocation) {
-        this.myLocation = myLocation;
+    public void setMyLocation(Location myLocation) {
+        this.location = myLocation;
     }
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return enabled == user.enabled &&
-                Objects.equals(id, user.id) &&
-                Objects.equals(username, user.username) &&
-                Objects.equals(password, user.password) &&
-                Objects.equals(name, user.name) &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(createdOn, user.createdOn) &&
-                Objects.equals(updatedOn, user.updatedOn) &&
-                Objects.equals(role, user.role) &&
-                Objects.equals(myLocation, user.myLocation);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, username, password, name, email, createdOn, updatedOn, enabled, role, myLocation);
     }
 }

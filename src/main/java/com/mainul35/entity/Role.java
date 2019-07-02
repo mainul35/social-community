@@ -13,6 +13,9 @@ public class Role implements GrantedAuthority {
     Long id;
     @Column
     String role;
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable=true)
+    private User tbl_user;
     @Override
     public String getAuthority() {
         return this.role;
@@ -32,5 +35,13 @@ public class Role implements GrantedAuthority {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public User getUser() {
+        return tbl_user;
+    }
+
+    public void setUser(User user) {
+        this.tbl_user = user;
     }
 }

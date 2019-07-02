@@ -2,12 +2,18 @@ package com.mainul35.controller;
 
 import com.mainul35.config.security.CustomAuthSuccessHandler;
 import com.mainul35.dao.LocationDao;
+import com.mainul35.dao.RoleDao;
 import com.mainul35.dao.StatusDao;
+import com.mainul35.dao.StatusVisibilityLocationDao;
 import com.mainul35.dao.UserDao;
 import com.mainul35.entity.Location;
+import com.mainul35.entity.Role;
 import com.mainul35.entity.Status;
+import com.mainul35.entity.StatusVisibilityLocation;
 import com.mainul35.entity.User;
 import com.mainul35.enums.Visibility;
+import com.mainul35.impl.RoleDaoImpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,13 +39,17 @@ public class HomeController {
     @Autowired
     private UserDao userDaoImpl;
     @Autowired
-    CustomAuthSuccessHandler successHandler;
+    private CustomAuthSuccessHandler successHandler;
     @Autowired
-    PasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
     @Autowired
     private LocationDao locationDaoImpl;
     @Autowired
     private StatusDao statusDaoImpl;
+    @Autowired
+    private RoleDao roleDaoImpl;
+    @Autowired
+    private StatusVisibilityLocationDao statusVisibilityLocationDaoImpl;
 
     @RequestMapping("/")
     public String index(Model model, HttpSession session){
@@ -148,7 +158,7 @@ public class HomeController {
                         user1.setMyLocation(user.getMyLocation());
                         user1.setPassword(user.getPassword());
                         user1.setUsername(user.getUsername());
-                        user1.setRole(user.getRole());
+                        user1.setRoles(user.getRoles());
                         user1.setUpdatedOn(new Date());
                         userDaoImpl.update(user1);
                         model.addAttribute("successMessage", messageSource.getMessage("x0.has.been.x1.successfully", new Object[]{"user", "updated"}, null));
@@ -171,28 +181,43 @@ public class HomeController {
             createLocation("Chattogram");
             createLocation("Jessore");
 
+            Role role = new Role();
+            role.setRole("ROLE_USER");
+            roleDaoImpl.save(role);
+
             User user = new User();
             user.setEmail("mainuls18@gmail.com");
             user.setUsername("mainul35");
+            user.setId(System.currentTimeMillis());
             user.setPassword(passwordEncoder.encode("secret"));
             user.setName("Syed Mainul Hasan");
             user.setCreatedOn(new Date());
-            user.setMyLocation("Dhaka");
+            user.setMyLocation(locationDaoImpl.getLocationByName("Dhaka"));
             user.setUpdatedOn(new Date());
-            user.setId(System.currentTimeMillis());
+            List<Role> roles = new ArrayList<Role>();
+            roles.add(role);
+            user.setRoles(roles);
             userDaoImpl.addUser(user);
+
+            role.setUser(user);
+            roleDaoImpl.updateRole(role);
 
             Status status = new Status();
             status.setOwner(user);
-            List<String> location = new ArrayList<>();
-            location.add("Dhaka");
-            status.setLocations(location);
             status.setId(System.currentTimeMillis());
             status.setVisibility(Visibility.valueOf(Visibility.PUBLIC));
             status.setTitle("Seed data");
             status.setStatus("Lorem Ipsum Dolor");
             status.setCreatedOn(new Date());
             statusDaoImpl.save(status);
+            userDaoImpl.update(user);
+            
+            List<StatusVisibilityLocation> statusVisibilityLocations = new ArrayList<StatusVisibilityLocation>();
+            statusVisibilityLocations.add(createVisibilityLocation(status, "Dhaka"));
+            createVisibilityLocation(status, "Dhaka");
+            createVisibilityLocation(status, "Chattogram");
+            status.setVisibilityLocations(statusVisibilityLocations);
+            statusDaoImpl.update(status);
         }
     }
 
@@ -201,5 +226,14 @@ public class HomeController {
         location.setLocationName(name);
         location.setId(System.currentTimeMillis());
         locationDaoImpl.addLocation(location);
+    }
+    
+    public StatusVisibilityLocation createVisibilityLocation(Status status, String locationName) {
+    	Location location = locationDaoImpl.getLocationByName(locationName);
+    	StatusVisibilityLocation statusVisibilityLocation = new StatusVisibilityLocation();
+    	statusVisibilityLocation.setStatus(status);
+    	statusVisibilityLocation.setLocation(location);
+    	statusVisibilityLocationDaoImpl.save(statusVisibilityLocation);
+    	return statusVisibilityLocation;
     }
 }

@@ -68,8 +68,8 @@ public class StatusDaoImpl implements StatusDao {
             statusList = (List<Status>)query.list();
             List<Status> finalStatusList = statusList;
             statusList.forEach(e->{
-                e.getLocations().forEach(f ->{
-                    if(!f.equalsIgnoreCase(user.getMyLocation())) {
+                e.getVisibilityLocations().forEach(f ->{
+                    if(!f.getLocation().getLocationName().equalsIgnoreCase(user.getMyLocation().getLocationName())) {
                         finalStatusList.remove(e);
                     }
                 });

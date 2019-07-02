@@ -1,15 +1,17 @@
 package com.mainul35.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.mainul35.enums.Visibility;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "tbl_status")
+@Table(name = "status")
 public class Status {
     @Id
     @NotNull(message = "ID must not be null")
@@ -21,10 +23,18 @@ public class Status {
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "status_writer")
     private User owner;
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name="visible_to_locations", joinColumns=@JoinColumn(name="status_id"))
-    @Column(name="location_name")
-    private List<String> locations;
+
+//---------- 6Mapped List of String location names
+//    @ElementCollection(fetch = FetchType.EAGER)
+//    @CollectionTable(name="visible_to_locations", joinColumns=@JoinColumn(name="status_id"))
+//    @Column(name="location_name")
+//    private List<String> locations;
+
+// ------------- Mapped with another class
+    @JsonIgnore
+    @OneToMany(mappedBy = "status")
+    private List<StatusVisibilityLocation> visibilityLocation = new ArrayList<StatusVisibilityLocation>();
+
     @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "attachments")
     private List<Attachment> attachments;
@@ -60,12 +70,21 @@ public class Status {
         this.owner = owner;
     }
 
-    public List<String> getLocations() {
-        return locations;
+//    public List<String> getLocations() {
+//        return locations;
+//    }
+//
+//    public void setLocations(List<String> locations) {
+//        this.locations = locations;
+//    }
+
+
+    public List<StatusVisibilityLocation> getVisibilityLocations() {
+        return visibilityLocation;
     }
 
-    public void setLocations(List<String> locations) {
-        this.locations = locations;
+    public void setVisibilityLocations(List<StatusVisibilityLocation> visibilityLocations) {
+        this.visibilityLocation = visibilityLocations;
     }
 
     public List<Attachment> getAttachments() {
@@ -112,12 +131,13 @@ public class Status {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Status)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Status status1 = (Status) o;
         return Objects.equals(id, status1.id) &&
                 Objects.equals(status, status1.status) &&
+                Objects.equals(title, status1.title) &&
                 Objects.equals(owner, status1.owner) &&
-                Objects.equals(locations, status1.locations) &&
+                Objects.equals(visibilityLocation, status1.visibilityLocation) &&
                 Objects.equals(attachments, status1.attachments) &&
                 Objects.equals(createdOn, status1.createdOn) &&
                 Objects.equals(updatedOn, status1.updatedOn) &&
@@ -126,7 +146,6 @@ public class Status {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, status, owner, locations, attachments, createdOn, updatedOn, visibility);
+        return Objects.hash(id, status, title, owner, visibilityLocation, attachments, createdOn, updatedOn, visibility);
     }
-
 }

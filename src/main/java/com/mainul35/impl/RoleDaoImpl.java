@@ -25,6 +25,12 @@ public class RoleDaoImpl implements RoleDao {
         session.save(role);
         return role;
     }
+    
+    public Role save(Role role) {
+        Session session = sessionFactory.getCurrentSession();
+        session.save(role);
+        return role;
+    }
 
     @Override
     public Role getRoleByRoleName(String roleName) {
@@ -37,5 +43,11 @@ public class RoleDaoImpl implements RoleDao {
             role = (Role) query.list().get(0);
         }
         return role;
+    }
+
+    @Override
+    public void updateRole(Role role) {
+        Session session = sessionFactory.getCurrentSession();
+        session.update(role);
     }
 }

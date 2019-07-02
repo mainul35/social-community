@@ -50,7 +50,9 @@ public class UserDaoImpl implements UserDao {
             role.setRole("ROLE_USER");
             session.save(role);
         }
-        user.setRole(role);
+        List<Role> roles = new ArrayList<>();
+        roles.add(role);
+        user.setRoles(roles);
         session.save(user);
         return user;
     }
@@ -83,26 +85,8 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User update(User user) {
-        String hql = "UPDATE User u " +
-                "set u.username = :username, " +
-                "u.email = :email, " +
-                "u.password = :password, " +
-                "u.name = :name, " +
-                "u.updatedOn = :updatedOn," +
-                "u.myLocation = :location," +
-                "u.role = :role "  +
-                "WHERE u.id = :id";
         Session session = sessionFactory.getCurrentSession();
-        Query query = session.createQuery(hql);
-        query.setParameter("username", user.getUsername());
-        query.setParameter("name", user.getName());
-        query.setParameter("email", user.getEmail());
-        query.setParameter("password", user.getPassword());
-        query.setParameter("updatedOn", user.getUpdatedOn());
-        query.setParameter("location", user.getMyLocation());
-        query.setParameter("role", user.getRole());
-        query.setParameter("id", user.getId());
-        query.executeUpdate();
+        session.update(user);
         return user;
 
     }

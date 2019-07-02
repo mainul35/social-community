@@ -26,8 +26,8 @@
                             </div>
                             </sec:authorize>
                             <div class="location-block">Locations:
-                                <c:forEach var="location" items="${post.locations}">
-                                    <span class="location-item">${location}</span>
+                                <c:forEach var="location" items="${post.visibilityLocation}">
+                                    <span class="location-item">${location.location}</span>
                                 </c:forEach>
                             </div>
                             <h5 class="mb-0">${post.title}</h5>
