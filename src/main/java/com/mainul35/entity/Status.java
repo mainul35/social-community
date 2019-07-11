@@ -32,8 +32,8 @@ public class Status {
 
 // ------------- Mapped with another class
     @JsonIgnore
-    @OneToMany(mappedBy = "status")
-    private List<StatusVisibilityLocation> visibilityLocation = new ArrayList<StatusVisibilityLocation>();
+    @OneToMany(mappedBy = "status", fetch = FetchType.LAZY)
+    private List<StatusVisibilityLocation> visibilityLocations;
 
     @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "attachments")
@@ -80,11 +80,11 @@ public class Status {
 
 
     public List<StatusVisibilityLocation> getVisibilityLocations() {
-        return visibilityLocation;
+        return visibilityLocations;
     }
 
     public void setVisibilityLocations(List<StatusVisibilityLocation> visibilityLocations) {
-        this.visibilityLocation = visibilityLocations;
+        this.visibilityLocations = visibilityLocations;
     }
 
     public List<Attachment> getAttachments() {
@@ -137,7 +137,7 @@ public class Status {
                 Objects.equals(status, status1.status) &&
                 Objects.equals(title, status1.title) &&
                 Objects.equals(owner, status1.owner) &&
-                Objects.equals(visibilityLocation, status1.visibilityLocation) &&
+                Objects.equals(visibilityLocations, status1.visibilityLocations) &&
                 Objects.equals(attachments, status1.attachments) &&
                 Objects.equals(createdOn, status1.createdOn) &&
                 Objects.equals(updatedOn, status1.updatedOn) &&
@@ -146,6 +146,6 @@ public class Status {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, status, title, owner, visibilityLocation, attachments, createdOn, updatedOn, visibility);
+        return Objects.hash(id, status, title, owner, visibilityLocations, attachments, createdOn, updatedOn, visibility);
     }
 }

@@ -1,18 +1,13 @@
 package com.mainul35.controller;
 
 import com.mainul35.config.security.CustomAuthSuccessHandler;
-import com.mainul35.dao.LocationDao;
-import com.mainul35.dao.RoleDao;
-import com.mainul35.dao.StatusDao;
-import com.mainul35.dao.StatusVisibilityLocationDao;
-import com.mainul35.dao.UserDao;
+import com.mainul35.dao.*;
 import com.mainul35.entity.Location;
 import com.mainul35.entity.Role;
 import com.mainul35.entity.Status;
 import com.mainul35.entity.StatusVisibilityLocation;
 import com.mainul35.entity.User;
 import com.mainul35.enums.Visibility;
-import com.mainul35.impl.RoleDaoImpl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

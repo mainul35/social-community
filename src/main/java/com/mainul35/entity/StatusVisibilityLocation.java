@@ -6,6 +6,7 @@ import javax.persistence.*;
 @Table(name = "status_locations")
 public class StatusVisibilityLocation {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     @ManyToOne
     @JoinColumn(name = "status_id", nullable = true)

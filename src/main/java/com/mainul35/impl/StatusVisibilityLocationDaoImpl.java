@@ -6,7 +6,6 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import javax.transaction.Transactional;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
@@ -18,8 +17,10 @@ import org.springframework.stereotype.Component;
 import com.mainul35.dao.StatusVisibilityLocationDao;
 import com.mainul35.entity.Location;
 import com.mainul35.entity.StatusVisibilityLocation;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-@Component
+@Service
 @Transactional
 public class StatusVisibilityLocationDaoImpl implements StatusVisibilityLocationDao{
 

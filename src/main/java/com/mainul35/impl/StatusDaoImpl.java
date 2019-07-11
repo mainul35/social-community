@@ -10,13 +10,14 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Component
+@Service
 @Transactional
 public class StatusDaoImpl implements StatusDao {
 
@@ -101,6 +102,10 @@ public class StatusDaoImpl implements StatusDao {
                 ((status.getVisibility().equalsIgnoreCase(Visibility.valueOf(Visibility.PRIVATE)) && status.getOwner().getEmail().equals(owner.getEmail()))
     || status.getVisibility().equalsIgnoreCase(Visibility.valueOf(Visibility.PUBLIC)))
                 ).collect(Collectors.toList());
+
+        statusList.forEach(status -> {
+            status.setVisibilityLocations(status.getVisibilityLocations());
+        });
         return statusList;
     }
 
