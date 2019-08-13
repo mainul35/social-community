@@ -4,8 +4,10 @@ import com.mainul35.dao.RoleDao;
 import com.mainul35.dao.UserDao;
 import com.mainul35.entity.Role;
 import com.mainul35.entity.User;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.CriteriaQuery;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,11 +15,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 @Transactional
@@ -105,6 +105,15 @@ public class UserDaoImpl implements UserDao {
         query.executeUpdate();
         return user;
 
+    }
+
+    @Override
+    public Collection<User> geAll() {
+        CriteriaBuilder criteriaBuilder = sessionFactory.getCriteriaBuilder();
+
+        Session session = sessionFactory.getCurrentSession();
+        Criteria criteria = session.createCriteria(User.class);
+        session.createQuery()
     }
 
     @Override

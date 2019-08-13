@@ -27,6 +27,7 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
         session.setAttribute("username", authUser.getUsername().split("@")[0]);
         System.out.println("Authenticated user = "+authUser.toString());
 
+        String successForwardUrl = "/profile";
         //set our response to OK status
         httpServletResponse.setStatus(HttpServletResponse.SC_OK);
 
@@ -34,6 +35,10 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
         //we will redirect the user after successfully login
         SavedRequest savedRequest = new HttpSessionRequestCache().getRequest(httpServletRequest, httpServletResponse);
         //  String requestUrl = savedRequest.getRedirectUrl();
-        httpServletResponse.sendRedirect("/profile"); //requestUrl!=null?requestUrl:
+
+        if (authUser.getRole().getAuthority().equals("ROLE_ADMIN")) {
+            successForwardUrl = "/admin/dashboard";
+        }
+        httpServletResponse.sendRedirect(successForwardUrl);//requestUrl!=null?requestUrl:
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
@@ -16,7 +17,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableTransactionManagement
-public class MySqlConfig {
+public class DbConfig {
     @Autowired
     private ApplicationContext context;
 
@@ -24,7 +25,7 @@ public class MySqlConfig {
     @Qualifier("sessionFactory")
     public LocalSessionFactoryBean getSessionFactory() {
         LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
-        factoryBean.setConfigLocation(context.getResource("classpath:hibernate.cfg.xml"));
+        factoryBean.setConfigLocation(context.getResource("classpath:hibernate-dev.cfg.xml"));
         factoryBean.setPackagesToScan("com.mainul35.entity");
         return factoryBean;
     }

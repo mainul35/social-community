@@ -1,8 +1,6 @@
 package com.mainul35.impl;
 
-import com.mainul35.dao.LocationDao;
 import com.mainul35.dao.StatusDao;
-import com.mainul35.entity.Location;
 import com.mainul35.entity.Status;
 import com.mainul35.entity.User;
 import com.mainul35.enums.Visibility;
@@ -23,8 +21,6 @@ public class StatusDaoImpl implements StatusDao {
 
     @Autowired
     private SessionFactory sessionFactory;
-    @Autowired
-    private LocationDao locationDaoImpl;
 
     @Override
     public Status save(Status status) {

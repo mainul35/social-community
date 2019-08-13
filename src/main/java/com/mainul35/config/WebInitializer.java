@@ -15,7 +15,7 @@ public class WebInitializer extends AbstractAnnotationConfigDispatcherServletIni
     protected Class<?>[] getRootConfigClasses() {
         return new Class[]{
                 RootConfig.class,
-                MySqlConfig.class,
+                DbConfig.class,
                 SecurityConfig.class
         };
     }

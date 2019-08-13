@@ -1,10 +1,8 @@
 package com.mainul35.controller;
 
 import com.mainul35.config.security.CustomAuthSuccessHandler;
-import com.mainul35.dao.LocationDao;
 import com.mainul35.dao.StatusDao;
 import com.mainul35.dao.UserDao;
-import com.mainul35.entity.Location;
 import com.mainul35.entity.Status;
 import com.mainul35.entity.User;
 import com.mainul35.enums.Visibility;
@@ -36,8 +34,6 @@ public class HomeController {
     CustomAuthSuccessHandler successHandler;
     @Autowired
     PasswordEncoder passwordEncoder;
-    @Autowired
-    private LocationDao locationDaoImpl;
     @Autowired
     private StatusDao statusDaoImpl;
 
@@ -95,9 +91,6 @@ public class HomeController {
         model.addAttribute("status", status);
         model.addAttribute("posts", statusDaoImpl.getByOwner(user));
         List<String> locationNames = new ArrayList<>();
-        for (Location l: locationDaoImpl.getAllLocations()) {
-            locationNames.add(l.getLocationName());
-        }
         model.addAttribute("locationList", locationNames);
         List<String> visibilities = new ArrayList<>();
         visibilities.add(Visibility.valueOf(Visibility.PUBLIC));
@@ -109,12 +102,7 @@ public class HomeController {
     @RequestMapping(value = "/register", method = {RequestMethod.GET, RequestMethod.POST})
     public String register(Model model, @Valid @ModelAttribute("user") User user,
                            BindingResult theBindingResult, HttpServletRequest request){
-        List<Location> locations = locationDaoImpl.getAllLocations();
-        List<String> locationNames = new ArrayList<>();
-        for (Location l: locationDaoImpl.getAllLocations()) {
-            locationNames.add(l.getLocationName());
-        }
-        model.addAttribute("locationList", locationNames);
+
         if (request.getSession().getAttribute("username") != null) {
             if (!((String)request.getSession().getAttribute("username")).isEmpty()){
                 return profile(model, request.getSession());
@@ -165,11 +153,7 @@ public class HomeController {
     }
 
     public void initializeDB(){
-        if (locationDaoImpl.getAllLocations().size() < 1) {
-            createLocation("Dhaka");
-            createLocation("Khulna");
-            createLocation("Chattogram");
-            createLocation("Jessore");
+        if (userDaoImpl.geAll().size() < 1) {
 
             User user = new User();
             user.setEmail("mainuls18@gmail.com");
@@ -194,12 +178,5 @@ public class HomeController {
             status.setCreatedOn(new Date());
             statusDaoImpl.save(status);
         }
-    }
-
-    private void createLocation(String name) {
-        Location location = new Location();
-        location.setLocationName(name);
-        location.setId(System.currentTimeMillis());
-        locationDaoImpl.addLocation(location);
     }
 }

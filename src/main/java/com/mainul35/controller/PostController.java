@@ -1,9 +1,7 @@
 package com.mainul35.controller;
 
-import com.mainul35.dao.LocationDao;
 import com.mainul35.dao.StatusDao;
 import com.mainul35.dao.UserDao;
-import com.mainul35.entity.Location;
 import com.mainul35.entity.Status;
 import com.mainul35.entity.User;
 import com.mainul35.enums.Visibility;
@@ -29,8 +27,6 @@ public class PostController {
     @Autowired
     private StatusDao statusDaoImpl;
     @Autowired
-    private LocationDao locationDaoImpl;
-    @Autowired
     private UserDao userDaoImpl;
 
     @RequestMapping(value = "/post-editor", method = {RequestMethod.GET, RequestMethod.POST})
@@ -41,12 +37,7 @@ public class PostController {
         visibilities.add(Visibility.valueOf(Visibility.PUBLIC));
         visibilities.add(Visibility.valueOf(Visibility.PRIVATE));
         model.addAttribute("visibilities", visibilities);
-        List<Location> locations = locationDaoImpl.getAllLocations();
-        List<String> locationNames = new ArrayList<>();
-        for (Location l: locationDaoImpl.getAllLocations()) {
-            locationNames.add(l.getLocationName());
-        }
-        model.addAttribute("locationList", locationNames);
+
         String errorMessage = "Form submission failed due to following validation errors.<br><ul>";
         if (request.getMethod().equalsIgnoreCase("POST")) {
             if (theBindingResult.hasErrors()) {
@@ -105,12 +96,6 @@ public class PostController {
         visibilities.add(Visibility.valueOf(Visibility.PUBLIC));
         visibilities.add(Visibility.valueOf(Visibility.PRIVATE));
         model.addAttribute("visibilities", visibilities);
-        List<Location> locations = locationDaoImpl.getAllLocations();
-        List<String> locationNames = new ArrayList<>();
-        for (Location l: locationDaoImpl.getAllLocations()) {
-            locationNames.add(l.getLocationName());
-        }
-        model.addAttribute("locationList", locationNames);
         String errorMessage = "Form submission failed due to following validation errors.<br><ul>";
         model.addAttribute("update", true);
         model.addAttribute("posts", statusDaoImpl.getByOwner(user));

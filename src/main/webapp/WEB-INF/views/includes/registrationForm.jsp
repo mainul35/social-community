@@ -36,7 +36,7 @@
                                 <div class="col-md-6">
                                     <form:input type="text" id="name" class="form-control required" length="2..70" path="name"
                                                 required="true" autofocus="true"></form:input>
-                                    <form:errors path="name" class="name-invalid-message"></form:errors>
+<%--                                    <form:errors path="name" class="name-invalid-message"></form:errors>--%>
                                 </div>
                             </div>
 
@@ -45,7 +45,7 @@
                                 <div class="col-md-6">
                                     <form:input type="email" id="email_address" class="form-control required" length="5..60" path="email"
                                                 required="true"></form:input>
-                                    <form:errors path="email" class="email-invalid-message"></form:errors>
+<%--                                    <form:errors path="email" class="email-invalid-message"></form:errors>--%>
                                 </div>
                             </div>
 
@@ -54,7 +54,7 @@
                                 <div class="col-md-6">
                                     <form:input type="text" id="username" class="form-control required" length="5..60" path="username"
                                                 required="true"></form:input>
-                                    <form:errors path="username" class="username-invalid-message"></form:errors>
+<%--                                    <form:errors path="username" class="username-invalid-message"></form:errors>--%>
                                 </div>
                             </div>
                             <div  class="form-group row">
@@ -65,14 +65,14 @@
                                                      value="${empty status.locations?'Please Select a Location':status.locations}"/>
                                         <form:options items="${locationList}" />
                                     </form:select>
-                                    <form:errors path="myLocation" class="myLocation-invalid-message"></form:errors>
+<%--                                    <form:errors path="myLocation" class="myLocation-invalid-message"></form:errors>--%>
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label for="password" class="col-md-4 col-form-label text-md-right"><fmt:message key="password"/></label>
                                 <div class="col-md-6">
                                     <form:input type="password" id="password"  length="6..70" class="form-control required" path="password" required="true"></form:input>
-                                    <form:errors path="password" class="password-invalid-message"></form:errors>
+<%--                                    <form:errors path="password" class="password-invalid-message"></form:errors>--%>
                                 </div>
                             </div>
 

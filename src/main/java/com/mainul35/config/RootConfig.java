@@ -23,6 +23,7 @@ public class RootConfig {
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setBasename("resourceBundles/messages");
         messageSource.setDefaultEncoding("UTF-8");
+        messageSource.setCacheSeconds(0);
         return messageSource;
     }
 }

@@ -1,6 +1,5 @@
 package com.mainul35.dao;
 
-import com.mainul35.entity.Location;
 import com.mainul35.entity.Status;
 import com.mainul35.entity.User;
 import com.mainul35.enums.Visibility;
