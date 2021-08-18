@@ -13,7 +13,8 @@ import java.util.Objects;
 public class Status {
     @Id
     @NotNull(message = "ID must not be null")
-    private Long id;
+    @Column(name = "status_id")
+    private Long statusId;
     @Column(columnDefinition="TEXT")
     private String status;
     @Column
@@ -37,11 +38,11 @@ public class Status {
     private String visibility;
 
     public Long getId() {
-        return id;
+        return statusId;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        this.statusId = id;
     }
 
     public String getStatus() {
@@ -114,7 +115,7 @@ public class Status {
         if (this == o) return true;
         if (!(o instanceof Status)) return false;
         Status status1 = (Status) o;
-        return Objects.equals(id, status1.id) &&
+        return Objects.equals(statusId, status1.statusId) &&
                 Objects.equals(status, status1.status) &&
                 Objects.equals(owner, status1.owner) &&
                 Objects.equals(locations, status1.locations) &&
@@ -126,7 +127,7 @@ public class Status {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, status, owner, locations, attachments, createdOn, updatedOn, visibility);
+        return Objects.hash(statusId, status, owner, locations, attachments, createdOn, updatedOn, visibility);
     }
 
 }

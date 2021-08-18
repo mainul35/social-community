@@ -38,7 +38,7 @@ public class AttachmentDaoImpl implements AttachmentDao {
                 extension = tokenizer.nextToken();
             }
             String url = "resources" + "\\" + referenceId+ "\\";
-            attachment.setDisplayName(Long.toString(attachment.getId()));
+            attachment.setDisplayName(Long.toString(attachment.getAttachmentId()));
             attachment.setPath(url);
             attachment.setType("."+extension);
             File file = File.createTempFile("\\"+attachment.getDisplayName(), attachment.getType());

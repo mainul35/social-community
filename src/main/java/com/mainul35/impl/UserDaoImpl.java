@@ -44,12 +44,12 @@ public class UserDaoImpl implements UserDao {
         user.setCreatedOn(new Date());
         user.setUpdatedOn(new Date());
 
-        Role role = null;
+        Role role = roleDao.getRoleByRoleName("ROLE_USER");
         if (role == null) {
             role = new Role();
             role.setRole("ROLE_USER");
-            session.save(role);
         }
+        session.save(role);
         user.setRole(role);
         session.save(user);
         return user;

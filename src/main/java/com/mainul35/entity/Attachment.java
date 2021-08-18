@@ -1,16 +1,14 @@
 package com.mainul35.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @Table(name = "attachment")
 public class Attachment {
     @Id
-    private Long id;
+    @Column(name = "attachment_id")
+    private Long attachmentId;
     @Column
     String displayName;
     @Column
@@ -28,15 +26,7 @@ public class Attachment {
     private Date updatedOn;
 
     public Attachment() {
-        this.id = System.currentTimeMillis();
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+        this.attachmentId = System.currentTimeMillis();
     }
 
     public String getDisplayName() {
@@ -77,5 +67,29 @@ public class Attachment {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public Long getAttachmentId() {
+        return attachmentId;
+    }
+
+    public void setAttachmentId(Long attachmentId) {
+        this.attachmentId = attachmentId;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getUpdatedBy() {
+        return updatedBy;
+    }
+
+    public void setUpdatedBy(String updatedBy) {
+        this.updatedBy = updatedBy;
     }
 }
