@@ -1,13 +1,20 @@
 package com.mainul35.entity;
 
-import com.mainul35.enums.Visibility;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+@NamedEntityGraphs({
+        @NamedEntityGraph(
+                name = "graph.statusAuthoredByAndVisibilityLocationsAndAttachments",
+                attributeNodes = {
+                        @NamedAttributeNode(value = "owner"),
+                        @NamedAttributeNode(value = "locations"),
+                }
+        )
+})
 @Entity
 @Table(name = "tbl_status")
 public class Status {
@@ -19,16 +26,20 @@ public class Status {
     private String status;
     @Column
     private String title;
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "status_writer")
     private User owner;
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name="visible_to_locations", joinColumns=@JoinColumn(name="status_id"))
-    @Column(name="location_name")
-    private List<String> locations;
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "attachments")
-    private List<Attachment> attachments;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "status_locations", joinColumns = {
+            @JoinColumn(name = "status_id", referencedColumnName = "status_id")
+    },
+    inverseJoinColumns = {
+            @JoinColumn(name = "location_id", referencedColumnName = "id")
+    })
+    private List<Location> locations;
+//    @OneToMany(fetch = FetchType.LAZY)
+//    @JoinTable(name = "attachments")
+//    private List<Attachment> attachments;
     @Column
     private Date createdOn;
     @Column
@@ -61,21 +72,21 @@ public class Status {
         this.owner = owner;
     }
 
-    public List<String> getLocations() {
+    public List<Location> getLocations() {
         return locations;
     }
 
-    public void setLocations(List<String> locations) {
+    public void setLocations(List<Location> locations) {
         this.locations = locations;
     }
 
-    public List<Attachment> getAttachments() {
-        return attachments;
-    }
-
-    public void setAttachments(List<Attachment> attachments) {
-        this.attachments = attachments;
-    }
+//    public List<Attachment> getAttachments() {
+//        return attachments;
+//    }
+//
+//    public void setAttachments(List<Attachment> attachments) {
+//        this.attachments = attachments;
+//    }
 
     public Date getCreatedOn() {
         return createdOn;
@@ -119,7 +130,7 @@ public class Status {
                 Objects.equals(status, status1.status) &&
                 Objects.equals(owner, status1.owner) &&
                 Objects.equals(locations, status1.locations) &&
-                Objects.equals(attachments, status1.attachments) &&
+//                Objects.equals(attachments, status1.attachments) &&
                 Objects.equals(createdOn, status1.createdOn) &&
                 Objects.equals(updatedOn, status1.updatedOn) &&
                 Objects.equals(visibility, status1.visibility);
@@ -127,7 +138,7 @@ public class Status {
 
     @Override
     public int hashCode() {
-        return Objects.hash(statusId, status, owner, locations, attachments, createdOn, updatedOn, visibility);
+        return Objects.hash(statusId, status, owner, locations, createdOn, updatedOn, visibility);
     }
 
 }
