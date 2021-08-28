@@ -24,7 +24,6 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
     		) throws IOException, ServletException {
         HttpSession session = httpServletRequest.getSession();
         User authUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        session.setAttribute("username", authUser.getUsername().split("@")[0]);
         System.out.println("Authenticated user = "+authUser.toString());
 
         //set our response to OK status

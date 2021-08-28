@@ -25,7 +25,7 @@ public class User implements UserDetails {
     @Column
     private String password;
     @NotNull(message = "Name is required")
-    @Size(min=2, max=70, message = "Name must be between 2-70 characters")
+    @Size(min=5, max=70, message = "Name must be between 5-70 characters")
     @Column
     private String name;
     @NotNull(message = "Email must not be empty")
@@ -46,10 +46,8 @@ public class User implements UserDetails {
     @Column(name="location_name")
     private String myLocation;
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<Role> roles = new ArrayList<>();
-        roles.add(this.role);
-        return roles;
+    public List<Role> getAuthorities() {
+        return Collections.singletonList(this.role);
     }
 
     public void setRole(Role role) {
