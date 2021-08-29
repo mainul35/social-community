@@ -10,6 +10,8 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -24,5 +26,10 @@ public class RootConfig {
         messageSource.setBasename("resourceBundles/messages");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
+    }
+
+    @Bean(name = "passwordEncoder")
+    PasswordEncoder BCPasswordEncoder(){
+        return new BCryptPasswordEncoder(11);
     }
 }

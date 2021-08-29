@@ -12,6 +12,8 @@ import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.EntityGraph;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +72,7 @@ public class StatusDaoImpl implements StatusDao {
             List<Status> finalStatusList = statusList;
             statusList.forEach(e->{
                 e.getLocations().forEach(f ->{
-                    if(!f.equalsIgnoreCase(user.getMyLocation())) {
+                    if(!f.equals(user.getMyLocation())) {
                         finalStatusList.remove(e);
                     }
                 });
@@ -91,9 +93,12 @@ public class StatusDaoImpl implements StatusDao {
                 visibilityList.add(Visibility.valueOf(v));
             });
         }
+        var em = session.getEntityManagerFactory().createEntityManager();
+        EntityGraph<?> graph = em.createEntityGraph("graph.statusAuthoredByAndVisibilityLocationsAndAttachments");
         String hql = "FROM Status st where st.visibility in (:visibility)  order by st.updatedOn DESC ";
         Query query = session.createQuery(hql);
         query.setParameter("visibility", visibilityList);
+        query.setHint("javax.persistence.fetchgraph", graph);
         List<Status> statusList = null;
         if (query.list().size() > 0) {
             statusList = (List<Status>) query.list();

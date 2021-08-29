@@ -184,9 +184,11 @@ public class HomeController {
 
             Status status = new Status();
             status.setOwner(user);
-            List<String> location = new ArrayList<>();
-            location.add("Dhaka");
-            status.setLocations(location);
+            List<Location> locations = new ArrayList<>();
+            locations.add(locationDaoImpl.getLocationByName("Dhaka"));
+            locations.add(locationDaoImpl.getLocationByName("Chattogram"));
+
+            status.setLocations(locations);
             status.setId(System.currentTimeMillis());
             status.setVisibility(Visibility.valueOf(Visibility.PUBLIC));
             status.setTitle("Seed data");
