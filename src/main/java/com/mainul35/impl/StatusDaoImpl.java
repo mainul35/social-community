@@ -2,7 +2,6 @@ package com.mainul35.impl;
 
 import com.mainul35.dao.LocationDao;
 import com.mainul35.dao.StatusDao;
-import com.mainul35.entity.Location;
 import com.mainul35.entity.Status;
 import com.mainul35.entity.User;
 import com.mainul35.enums.Visibility;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.EntityGraph;
-import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -104,7 +102,8 @@ public class StatusDaoImpl implements StatusDao {
             statusList = (List<Status>) query.list();
         }
         statusList = statusList.stream().filter(status ->
-                ((status.getVisibility().equalsIgnoreCase(Visibility.valueOf(Visibility.PRIVATE)) && status.getOwner().getEmail().equals(owner.getEmail()))
+                ((status.getVisibility().equalsIgnoreCase(Visibility.valueOf(Visibility.PRIVATE))
+                        && status.getOwner().getEmail().equals(owner.getEmail()))
     || status.getVisibility().equalsIgnoreCase(Visibility.valueOf(Visibility.PUBLIC)))
                 ).collect(Collectors.toList());
         return statusList;
