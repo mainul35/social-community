@@ -3,8 +3,8 @@ package com.mainul35.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @NamedEntityGraphs({
         @NamedEntityGraph(
@@ -36,10 +36,10 @@ public class Status {
     inverseJoinColumns = {
             @JoinColumn(name = "location_id", referencedColumnName = "id")
     })
-    private List<Location> locations;
-//    @OneToMany(fetch = FetchType.LAZY)
-//    @JoinTable(name = "attachments")
-//    private List<Attachment> attachments;
+    private Set<Location> locations;
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "attachments")
+    private Set<Attachment> attachments;
     @Column
     private Date createdOn;
     @Column
@@ -72,21 +72,21 @@ public class Status {
         this.owner = owner;
     }
 
-    public List<Location> getLocations() {
+    public Set<Location> getLocations() {
         return locations;
     }
 
-    public void setLocations(List<Location> locations) {
+    public void setLocations(Set<Location> locations) {
         this.locations = locations;
     }
 
-//    public List<Attachment> getAttachments() {
-//        return attachments;
-//    }
-//
-//    public void setAttachments(List<Attachment> attachments) {
-//        this.attachments = attachments;
-//    }
+    public Set<Attachment> getAttachments() {
+        return attachments;
+    }
+
+    public void setAttachments(Set<Attachment> attachments) {
+        this.attachments = attachments;
+    }
 
     public Date getCreatedOn() {
         return createdOn;

@@ -22,9 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class HomeController {
@@ -184,7 +182,7 @@ public class HomeController {
 
             Status status = new Status();
             status.setOwner(user);
-            List<Location> locations = new ArrayList<>();
+            Set<Location> locations = new HashSet<> ();
             locations.add(locationDaoImpl.getLocationByName("Dhaka"));
             locations.add(locationDaoImpl.getLocationByName("Chattogram"));
 
